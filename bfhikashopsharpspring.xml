@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.5" method="upgrade" group="system">
+	<name>System - Hikashop SharpSpring Plugin by BrainforgeUK</name>
+	<creationDate>July 2020</creationDate>
+	<version>1.0.0</version>
+	<author>Jonathan Brain</author>
+	<authorEmail>brainforge@btinternet.com</authorEmail>
+	<authorUrl>https://www.brainforge.co.uk</authorUrl>
+	<copyright>Copyright (C) 2020 Jonathan Brain - All rights reserved.
+	</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<description>PLG_SYSTEM_BFSHARPSPRING_XML_DESCRIPTION</description>
+
+	<files>
+		<filename plugin="bfhikashopsharpspring">bfhikashopsharpspring.php</filename>
+		<folder>language</folder>
+	</files>
+
+	<config>
+		<fields
+				name="params"
+				addfieldpath="plugins/hikashopshipping/bfhikashopsharpspring/fields">
+			<fieldset
+					name="basic">
+				<field
+						name="clientssscript"
+						type="text"
+						required="true"
+						label="PLG_SYSTEM_BFSHARPSPRING_CLIENTSSSCRIPT_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_CLIENTSSSCRIPT_DESC"
+						hint="https:://**********.marketingautomation.services/client/ss.js?ver=2.3.1"
+						class="input-xxlarge"
+				/>
+				<field
+						name="domain"
+						type="text"
+						required="true"
+						label="PLG_SYSTEM_BFSHARPSPRING_DOMAIN_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_DOMAIN_DESC"
+						hint="https:://**********.marketingautomation.services/net"
+						class="input-xxlarge"
+				/>
+				<field
+						name="account"
+						type="text"
+						required="true"
+						label="PLG_SYSTEM_BFSHARPSPRING_ACCOUNT_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_ACCOUNT_DESC"
+						hint="**********"
+				/>
+				<field
+						name="storename"
+						type="text"
+						required="true"
+						label="PLG_SYSTEM_BFSHARPSPRING_STORENAME_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_STORENAME_DESC"
+						class="input-xxlarge"
+						hint="This is my store"
+				/>
+				<field
+						name="transactionidfield"
+						type="orderidfield"
+						required="true"
+						default="order_number"
+						label="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDFIELD_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDFIELD_DESC"
+				/>
+			</fieldset>
+
+			<fieldset
+					name="testing"
+					label="PLG_SYSTEM_BFSHARPSPRING_TESTING_LABEL"
+			>
+				<field
+						name="testorderid"
+						type="text"
+						label="PLG_SYSTEM_BFSHARPSPRING_TESTORDERID_LABEL"
+						filter="integer"
+						class="input-small"
+				/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
