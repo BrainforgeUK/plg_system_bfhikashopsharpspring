@@ -19,7 +19,7 @@
 	<config>
 		<fields
 				name="params"
-				addfieldpath="plugins/hikashopshipping/bfhikashopsharpspring/fields">
+				addfieldpath="plugins/system/bfhikashopsharpspring/fields">
 			<fieldset
 					name="basic">
 				<field
