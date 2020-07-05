@@ -81,4 +81,10 @@
 			</fieldset>
 		</fields>
 	</config>
+
+	<updateservers>
+		<server type="extension" priority="1" name="PLG_BF_SYSTEM_BFSHARPSPRING">
+			https://brainforge.co.uk/component/bfupdater?element=plg_system_bfhikashopsharpspring.xml
+		</server>
+	</updateservers>
 </extension>
