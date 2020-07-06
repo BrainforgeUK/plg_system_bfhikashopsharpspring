@@ -59,12 +59,22 @@
 				/>
 				<field
 						name="transactionidfield"
-						type="orderidfield"
+						type="sql"
+						sql_select="field_namekey"
+						sql_from="#__hikashop_field"
+						sql_where="field_table='order' AND field_type='text'"
+						sql_order="field_namekey"
+						key_field="field_namekey"
+						key_value="field_namekey"
 						required="true"
 						default="order_number"
 						label="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDFIELD_LABEL"
 						description="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDFIELD_DESC"
-				/>
+				>
+					<option value="order_id">Order id</option>
+					<option value="order_number">Order number</option>
+					<option value="order_invoice_number">Order invoice number</option>
+				</field>
 			</fieldset>
 
 			<fieldset
