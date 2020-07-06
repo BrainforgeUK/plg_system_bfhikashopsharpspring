@@ -76,6 +76,15 @@
 					<option value="order_invoice_number">Order invoice number</option>
 				</field>
 				<field
+						name="transactionidprefix"
+						type="text"
+						required="false"
+						label="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDPREFIX_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDPREFIX_DESC"
+						class="input-small"
+						hint="abc-"
+				/>
+				<field
 						name="paymentmethods"
 						type="sql"
 						sql_select="payment_id, payment_name"

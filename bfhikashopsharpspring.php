@@ -139,9 +139,9 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 		}
 
 		$transactionIdField = $this->params->get('transactionidfield');
-		$transactionId = $this->cleanText($fullOrder->$transactionIdField);
+		$transactionId = $this->cleanText($this->params->get('transactionidprefix') . $fullOrder->$transactionIdField);
 
-		$script = '<script src="' . $this->params->get('clientssscript') . '"></script>
+		$script = '
 <script>
 try {
 ';
@@ -151,6 +151,14 @@ try {
 	_ss.push(["_setDomain", '	. '"' .	$this->params->get('domain') . '"]);
 	_ss.push(["_setAccount", '	. '"' .	$this->params->get('account') . '"]);
 	_ss.push(["_trackPageView"]);
+
+	(function() {
+		var ss = document.createElement("script");
+		ss.type = "text/javascript"; ss.async = true;
+		ss.src = "' . $this->params->get('clientssscript') . '";
+		var scr = document.getElementsByTagName("script")[0];
+		scr.parentNode.insertBefore(ss, scr);
+	})();
 ';
 		if ($testMode == 'alert')
 		{
@@ -221,7 +229,9 @@ try {
 } catch (err) {
 	alert("Error : " + err.message);
 }
-</script>';
+</script>
+<script src="' . $this->params->get('clientssscript') . '"></script>
+';
 
 		return $script;
 	}
