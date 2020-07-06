@@ -27,16 +27,23 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 	}
 
 	public function onAfterOrderUpdate(&$order) {
+		$fullOrder = $this->getFullOrder($order->order_id);
+
 		if (
-			(isset($order->order_type) && $order->order_type != 'sale') ||
+			(isset($fullOrder->order_type) && $fullOrder->order_type != 'sale') ||
 			(isset($order->old->order_type) && $order->old->order_type != 'sale') ||
 			!isset($order->order_status)
-		   )
+		)
 		{
 			return true;
 		}
 
-		$fullOrder = $this->getFullOrder($order->order_id);
+		$paymentMethods = $this->params->get('paymentmethods');
+		if (empty($paymentMethods) || !in_array($fullOrder->order_payment_id, $paymentMethods))
+		{
+			return true;
+		}
+
 		$payment_params = hikashop_unserialize($fullOrder->payment->payment_params);
 		if (empty($payment_params->verified_status))
 		{
@@ -50,7 +57,7 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 
 		if ($order->order_status != $confirmed_status ||
 			(isset($order->old->order_status) && $order->old->order_status == $confirmed_status)
-		   )
+		)
 		{
 			return true;
 		}

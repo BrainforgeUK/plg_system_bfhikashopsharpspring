@@ -19,7 +19,7 @@
 	<config>
 		<fields
 				name="params"
-				addfieldpath="plugins/system/bfhikashopsharpspring/fields">
+				addfieldpath="plugins/hikashopshipping/bfhikashopsharpspring/fields">
 			<fieldset
 					name="basic">
 				<field
@@ -65,7 +65,7 @@
 						sql_where="field_table='order' AND field_type='text'"
 						sql_order="field_namekey"
 						key_field="field_namekey"
-						key_value="field_namekey"
+						value_field="field_namekey"
 						required="true"
 						default="order_number"
 						label="PLG_SYSTEM_BFSHARPSPRING_TRANSACTIONIDFIELD_LABEL"
@@ -75,6 +75,20 @@
 					<option value="order_number">Order number</option>
 					<option value="order_invoice_number">Order invoice number</option>
 				</field>
+				<field
+						name="paymentmethods"
+						type="sql"
+						sql_select="payment_id, payment_name"
+						sql_from="#__hikashop_payment"
+						sql_order="payment_ordering"
+						key_field="payment_id"
+						value_field="payment_name"
+						required="false"
+						multiple="true"
+						default=""
+						label="PLG_SYSTEM_BFSHARPSPRING_PAYMENTMETHODS_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_PAYMENTMETHODS_DESC"
+				/>
 			</fieldset>
 
 			<fieldset
@@ -91,10 +105,4 @@
 			</fieldset>
 		</fields>
 	</config>
-
-	<updateservers>
-		<server type="extension" priority="1" name="PLG_BF_SYSTEM_BFSHARPSPRING">
-			https://brainforge.co.uk/component/bfupdater?element=plg_system_bfhikashopsharpspring.xml
-		</server>
-	</updateservers>
 </extension>
