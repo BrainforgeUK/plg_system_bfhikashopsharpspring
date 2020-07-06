@@ -33,7 +33,7 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 			(isset($fullOrder->order_type) && $fullOrder->order_type != 'sale') ||
 			(isset($order->old->order_type) && $order->old->order_type != 'sale') ||
 			!isset($order->order_status)
-		)
+		   )
 		{
 			return true;
 		}
@@ -57,7 +57,7 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 
 		if ($order->order_status != $confirmed_status ||
 			(isset($order->old->order_status) && $order->old->order_status == $confirmed_status)
-		)
+		   )
 		{
 			return true;
 		}
