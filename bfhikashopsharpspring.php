@@ -131,6 +131,10 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 		return str_replace('"', '\\"', $text);
 	}
 
+	/**
+	 * Be better to use curl instead of Javascript for this.
+	 * Look for examples of using curl with Google Analytics collection.
+	 */
 	protected function getScript($fullOrder, $testMode=null)
 	{
 		if (empty($fullOrder))
@@ -151,14 +155,6 @@ try {
 	_ss.push(["_setDomain", '	. '"' .	$this->params->get('domain') . '"]);
 	_ss.push(["_setAccount", '	. '"' .	$this->params->get('account') . '"]);
 	_ss.push(["_trackPageView"]);
-
-	(function() {
-		var ss = document.createElement("script");
-		ss.type = "text/javascript"; ss.async = true;
-		ss.src = "' . $this->params->get('clientssscript') . '";
-		var scr = document.getElementsByTagName("script")[0];
-		scr.parentNode.insertBefore(ss, scr);
-	})();
 ';
 		if ($testMode == 'alert')
 		{
