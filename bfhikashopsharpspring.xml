@@ -105,6 +105,12 @@
 					label="PLG_SYSTEM_BFSHARPSPRING_TESTING_LABEL"
 			>
 				<field
+						name="test"
+						type="spacer"
+						label="PLG_SYSTEM_BFSHARPSPRING_TEST_LABEL"
+						description="PLG_SYSTEM_BFSHARPSPRING_TEST_DESC"
+				/>
+				<field
 						name="testorderid"
 						type="text"
 						label="PLG_SYSTEM_BFSHARPSPRING_TESTORDERID_LABEL"

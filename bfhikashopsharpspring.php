@@ -87,7 +87,6 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 
 	public function onTriggerPlugSharpspringtest()
 	{
-		// option=com_hikashop&task=triggerplug-sharpspringtest
 		ob_clean();
 
 		$app=Factory::getApplication();
