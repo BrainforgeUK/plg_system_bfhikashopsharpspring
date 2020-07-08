@@ -7,8 +7,10 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\CMS\Uri\Uri;
 
 defined('_JEXEC') or die('Restricted access');
 
@@ -92,8 +94,21 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 		$app=Factory::getApplication();
 		$order_id = $app->input->get('order_id', $this->params->get('testorderid'));
 
-		Factory::getApplication()->setUserState(plgSystemBfhikashopsharpspring::javascriptStore,
-			$this->getScript($this->getFullOrder($order_id, false)));
+		$script = $this->getScript($this->getFullOrder($order_id, false));
+		Factory::getApplication()->setUserState(plgSystemBfhikashopsharpspring::javascriptStore, $script);
+
+		Factory::getLanguage()->load('plg_system_bfhikashopsharpspring', __DIR__);
+
+		if (empty($script))
+		{
+			$app->enqueueMessage(Text::sprintf('PLG_SYSTEM_BFSHARPSPRING_TEST_FAIL',
+				$order_id, Uri::getInstance()->toString()),'error');
+		}
+		else
+		{
+			$app->enqueueMessage(Text::sprintf('PLG_SYSTEM_BFSHARPSPRING_TEST_SUCCESS',
+				$order_id, Uri::getInstance()->toString(), htmlspecialchars($script)));
+		}
 
 		$app->redirect('index.php');
 	}
