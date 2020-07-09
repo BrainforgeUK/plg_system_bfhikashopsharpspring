@@ -9,7 +9,6 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Uri\Uri;
 
 defined('_JEXEC') or die('Restricted access');
@@ -18,14 +17,12 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 {
 	const javascriptStore = 'plgSystemBfsharpspring.javascriptStore';
 
+	protected $app;
+
 	public function __construct(&$subject, $config) {
 		parent::__construct($subject, $config);
 
-		if(!isset($this->params))
-		{
-			$plugin = PluginHelper::getPlugin('system', 'bfhikashopsharpspring');
-			$this->params = new JRegistry($plugin->params);
-		}
+		$this->app = Factory::getApplication();
 	}
 
 	public function onAfterOrderUpdate(&$order) {
@@ -89,28 +86,30 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 
 	public function onTriggerPlugSharpspringtest()
 	{
-		ob_clean();
-
-		$app=Factory::getApplication();
-		$order_id = $app->input->get('order_id', $this->params->get('testorderid'));
-
-		$script = $this->getScript($this->getFullOrder($order_id, false));
-		Factory::getApplication()->setUserState(plgSystemBfhikashopsharpspring::javascriptStore, $script);
-
-		Factory::getLanguage()->load('plg_system_bfhikashopsharpspring', __DIR__);
-
-		if (empty($script))
+		if ($this->testlink = $this->params->get('testlink'))
 		{
-			$app->enqueueMessage(Text::sprintf('PLG_SYSTEM_BFSHARPSPRING_TEST_FAIL',
-				$order_id, Uri::getInstance()->toString()),'error');
-		}
-		else
-		{
-			$app->enqueueMessage(Text::sprintf('PLG_SYSTEM_BFSHARPSPRING_TEST_SUCCESS',
-				$order_id, Uri::getInstance()->toString(), htmlspecialchars($script)));
+			ob_clean();
+
+			$order_id = $this->app->input->get('order_id', $this->params->get('testorderid'));
+
+			$script = $this->getScript($this->getFullOrder($order_id, false));
+			Factory::getApplication()->setUserState(plgSystemBfhikashopsharpspring::javascriptStore, $script);
+
+			Factory::getLanguage()->load('plg_system_bfhikashopsharpspring', __DIR__);
+
+			if (empty($script))
+			{
+				$this->app->enqueueMessage(Text::sprintf('PLG_SYSTEM_BFSHARPSPRING_TEST_FAIL',
+					$order_id, Uri::getInstance()->toString()), 'error');
+			}
+			else
+			{
+				$this->app->enqueueMessage(Text::sprintf('PLG_SYSTEM_BFSHARPSPRING_TEST_SUCCESS',
+					$order_id, Uri::getInstance()->toString(), htmlspecialchars($script)));
+			}
 		}
 
-		$app->redirect('index.php');
+		$this->app->redirect('index.php');
 	}
 
 	protected function getFullOrder($order_id, $checkuser=true)
@@ -160,7 +159,7 @@ class plgSystemBfhikashopsharpspring extends CMSPlugin
 		$transactionId = $this->cleanText($this->params->get('transactionidprefix') . $fullOrder->$transactionIdField);
 
 		$script = '
-<script>
+<script type="text/javascript">
 try {
 ';
 
@@ -177,6 +176,19 @@ try {
 ';
 		}
 
+		$sscript = preg_replace('@^http[s]{0,1}://@i', '',
+								trim($this->params->get('clientssscript')));
+		$script .= '
+	(function() {
+		var ss = document.createElement("script");
+		ss.type = "text/javascript"; ss.async = true;
+		ss.src = ("https:" == document.location.protocol ? "https://" : "http://") + "' . $sscript . '";
+  		var scr = document.getElementsByTagName(\'script\')[0];
+		var scr = document.getElementsByTagName(\'script\')[0];
+		scr.parentNode.insertBefore(ss, scr);
+	})();
+';
+
 		$script .= '
 	_ss.push(["_setTransaction", {
 	"transactionID" : '	. '"' .	$transactionId . '",
@@ -190,7 +202,7 @@ try {
 	"country" : '		. '"' .	$this->cleanText($fullOrder->billing_address->address_country) . '",
 	"firstName" : '		. '"' .	$this->cleanText($fullOrder->billing_address->address_firstname) . '",
 	"lastName" : '		. '"' .	$this->cleanText($fullOrder->billing_address->address_lastname) . '",
-	"emailAddress" : '	. '"' .	$this->cleanText($fullOrder->order_customer->user_email) . '",
+	"emailAddress" : '	. '"' .	$this->cleanText($fullOrder->customer->user_email) . '",
 	}]);
 ';
 
@@ -240,7 +252,6 @@ try {
 	alert("Error : " + err.message);
 }
 </script>
-<script src="' . $this->params->get('clientssscript') . '"></script>
 ';
 
 		return $script;

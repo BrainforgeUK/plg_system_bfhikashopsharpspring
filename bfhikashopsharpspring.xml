@@ -28,7 +28,7 @@
 						required="true"
 						label="PLG_SYSTEM_BFSHARPSPRING_CLIENTSSSCRIPT_LABEL"
 						description="PLG_SYSTEM_BFSHARPSPRING_CLIENTSSSCRIPT_DESC"
-						hint="https:://**********.marketingautomation.services/client/ss.js?ver=2.3.1"
+						hint="koi-**********.marketingautomation.services/client/ss.js?ver=2.3.1"
 						class="input-xxlarge"
 				/>
 				<field
@@ -105,10 +105,21 @@
 					label="PLG_SYSTEM_BFSHARPSPRING_TESTING_LABEL"
 			>
 				<field
+						name="testlink"
+						type="radio"
+						default="0"
+						label="PLG_SYSTEM_BFSHARPSPRING_TESTLINK_LABEL"
+						class="btn-group btn-group-yesno"
+				>
+					<option value="0">JOFF</option>
+					<option value="1">JON</option>
+				</field>
+				<field
 						name="test"
 						type="spacer"
 						label="PLG_SYSTEM_BFSHARPSPRING_TEST_LABEL"
 						description="PLG_SYSTEM_BFSHARPSPRING_TEST_DESC"
+						showon="testlink:1"
 				/>
 				<field
 						name="testorderid"
@@ -116,6 +127,7 @@
 						label="PLG_SYSTEM_BFSHARPSPRING_TESTORDERID_LABEL"
 						filter="integer"
 						class="input-small"
+						showon="testlink:1"
 				/>
 			</fieldset>
 		</fields>
