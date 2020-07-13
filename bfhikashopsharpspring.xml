@@ -28,7 +28,7 @@
 						required="true"
 						label="PLG_SYSTEM_BFSHARPSPRING_CLIENTSSSCRIPT_LABEL"
 						description="PLG_SYSTEM_BFSHARPSPRING_CLIENTSSSCRIPT_DESC"
-						hint="koi-**********.marketingautomation.services/client/ss.js?ver=2.3.1"
+						hint="https://koi-**********.marketingautomation.services/client/ss.js?ver=2.3.1"
 						class="input-xxlarge"
 				/>
 				<field

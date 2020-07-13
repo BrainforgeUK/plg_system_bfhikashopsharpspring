@@ -176,13 +176,11 @@ try {
 ';
 		}
 
-		$sscript = preg_replace('@^http[s]{0,1}://@i', '',
-								trim($this->params->get('clientssscript')));
 		$script .= '
 	(function() {
 		var ss = document.createElement("script");
 		ss.type = "text/javascript"; ss.async = true;
-		ss.src = ("https:" == document.location.protocol ? "https://" : "http://") + "' . $sscript . '";
+		ss.src = ' . trim($this->params->get('clientssscript')) . '";
   		var scr = document.getElementsByTagName(\'script\')[0];
 		var scr = document.getElementsByTagName(\'script\')[0];
 		scr.parentNode.insertBefore(ss, scr);
