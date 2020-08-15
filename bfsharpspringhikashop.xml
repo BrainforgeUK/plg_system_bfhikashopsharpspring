@@ -12,7 +12,7 @@
 	<description>PLG_SYSTEM_BFSHARPSPRING_XML_DESCRIPTION</description>
 
 	<files>
-		<filename plugin="bfhikashopsharpspring">bfhikashopsharpspring.php</filename>
+		<filename plugin="bfsharpspringhikashop">bfsharpspringhikashop.php</filename>
 		<folder>language</folder>
 	</files>
 

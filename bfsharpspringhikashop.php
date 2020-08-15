@@ -13,7 +13,7 @@ use Joomla\CMS\Uri\Uri;
 
 defined('_JEXEC') or die('Restricted access');
 
-class plgSystemBfhikashopsharpspring extends CMSPlugin
+class plgSystemBfsharpspringhikashop extends CMSPlugin
 {
 	const javascriptStore = 'plgSystemBfsharpspring.javascriptStore';
 
